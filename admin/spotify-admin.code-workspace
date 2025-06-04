@@ -1,0 +1,13 @@
+{
+	"folders": [
+		{
+			"path": "."
+		},
+		{
+			"path": "../spotify-backend"
+		},
+		{
+			"path": "../spotify-clone"
+		}
+	]
+}
