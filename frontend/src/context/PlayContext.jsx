@@ -17,42 +17,32 @@ const PlayerContextProvider = (props) => {
     totalTime: { second: 0, minute: 0 },
   });
 
-  // Thay URL backend đúng đây
-  const API_BASE_URL = "http://localhost:4000";
+  // Fetch albums and songs from backend
+useEffect(() => {
+  const fetchData = () => {
+    axios.get("http://localhost:4000/api/album/list")
+      .then((response) => {
+        setAlbums(response.data);
+      })
+      .catch((error) => {
+        console.warn("Không kết nối được server album, dùng mock data.");
+        setAlbums(mockAlbums);
+      });
 
-  useEffect(() => {
-    const fetchData = () => {
-      axios.get(`${API_BASE_URL}/api/album/list`)
-        .then((response) => {
-          setAlbums(response.data);
-        })
-        .catch((error) => {
-          console.warn("Không kết nối được server album, dùng mock data.");
-          setAlbums(mockAlbums);
-        });
+    axios.get("http://localhost:4000/api/song/list")
+      .then((response) => {
+        setSongs(response.data);
+        setTrack(response.data[0]); // chọn bài hát đầu tiên
+      })
+      .catch((error) => {
+        console.warn("Không kết nối được server song, dùng mock data.");
+        setSongs(mockSongs);
+        setTrack(mockSongs[0]);
+      });
+  };
 
-      axios.get(`${API_BASE_URL}/api/song/list`)
-        .then((response) => {
-          const enrichedSongs = response.data.map((song, i) => ({
-            ...song,
-            createdAt: song.createdAt || new Date(Date.now() - i * 86400000).toISOString(),
-          }));
-          setSongs(enrichedSongs);
-          setTrack(enrichedSongs[0]);
-        })
-        .catch((error) => {
-          console.warn("Không kết nối được server song, dùng mock data.");
-          const enrichedMockSongs = mockSongs.map((song, i) => ({
-            ...song,
-            createdAt: song.createdAt || new Date(Date.now() - i * 86400000).toISOString(),
-          }));
-          setSongs(enrichedMockSongs);
-          setTrack(enrichedMockSongs[0]);
-        });
-    };
-
-    fetchData();
-  }, []);
+  fetchData();
+}, []);
 
   const play = () => {
     audioRef.current.play();
@@ -149,4 +139,4 @@ const PlayerContextProvider = (props) => {
   );
 };
 
-export default PlayerContextProvider;
+export default PlayerContextProvider; 
