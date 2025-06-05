@@ -87,7 +87,7 @@ CLOUDINARY_API_SECRET=your_api_secret
 
 ### 📅 Development Timeline (Milestones)
 
-📂 [Google Drive - Timeline Folder](https://drive.google.com/drive/home)
+📂 [Google Drive - Timeline Folder](https://drive.google.com/file/d/1MO0dde15JbFSwvRb44qUr0a6vtJc1DLw/view?usp=sharing)
 
 | Date       | Milestone                                | Status      |
 | ---------- | ---------------------------------------- | ----------- |
